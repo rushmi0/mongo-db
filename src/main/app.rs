@@ -10,7 +10,6 @@ use crate::storage;
 
 pub async fn run() -> std::io::Result<()> {
     dotenv().ok();
-    storage::init_db().await;
     env_logger::init();
 
     let host = env::var("APP_HOST").unwrap_or_else(|_| "127.0.0.1".to_string());

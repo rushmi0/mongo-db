@@ -8,8 +8,10 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${DB_USER}
       MONGO_INITDB_ROOT_PASSWORD: ${DB_PASS}
-      MONGO_INITDB_DATABASE: ${DB_NAME}
     restart: unless-stopped
+    volumes:
+      - mongodb_data:/data/db
+      - ./src/main/storage/config:/docker-entrypoint-initdb.d:ro
     networks:
       - dev_nk
     ports:
@@ -30,6 +32,10 @@ services:
       - dev_nk
     ports:
       - "8080:8080"
+
+volumes:
+  mongodb_data:
+    driver: local
 
 networks:
   dev_nk:
