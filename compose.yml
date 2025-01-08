@@ -1,3 +1,12 @@
+volumes:
+  mongodb_data:
+    driver: local
+
+networks:
+  dev_nk:
+    driver: bridge
+
+
 services:
 
   actix-db:
@@ -10,13 +19,11 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${DB_PASS}
     restart: unless-stopped
     volumes:
-      - mongodb_data:/data/db
-      - ./src/main/storage/config:/docker-entrypoint-initdb.d:ro
+      - ./db_setup.js:/docker-entrypoint-initdb.d/db_setup.js:ro
     networks:
       - dev_nk
     ports:
       - "27017:27017"
-
 
 
   actix-app:
@@ -32,11 +39,3 @@ services:
       - dev_nk
     ports:
       - "8080:8080"
-
-volumes:
-  mongodb_data:
-    driver: local
-
-networks:
-  dev_nk:
-    driver: bridge
