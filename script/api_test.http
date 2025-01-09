@@ -9,6 +9,38 @@ Content-Type: application/json
   "timestamp": 17552410
 }
 
+###
+
+POST http://localhost:8080/api/v1/save/nick
+Content-Type: application/json
+
+{
+  "name": "Event 2",
+  "description": "This is a test event 2",
+  "timestamp": 17552412
+}
+
+###
+
+POST http://localhost:8080/api/v1/save/nick
+Content-Type: application/json
+
+{
+  "name": "Event 3",
+  "description": "This is a test event 3",
+  "timestamp": 17552413
+}
+
+###
+
+POST http://localhost:8080/api/v1/save/nick
+Content-Type: application/json
+
+{
+  "name": "Event 4",
+  "description": "This is a test event 4",
+  "timestamp": 17552414
+}
 
 ###
 

@@ -20,7 +20,7 @@ async fn create_client() -> Result<Arc<RwLock<Client>>, Error> {
     dotenv().ok();
     let database_url = env::var("MONGODB_URI").map_err(|_| {
         Error::from(std::io::Error::new(
-            std::io::ErrorKind::InvalidInput,
+            ErrorKind::InvalidInput,
             "MONGODB_URI is not set",
         ))
     })?;
@@ -37,17 +37,12 @@ async fn create_client() -> Result<Arc<RwLock<Client>>, Error> {
 
     // ทดสอบการเชื่อมต่อใน loop
     loop {
-        let result = client.list_database_names().await;
-
-        match result {
+        match client.list_database_names().await {
             Ok(_) => {
                 info!("Connected to MongoDB success...");
                 break;
             }
-            Err(err) => {
-                warn!("Connection failed: {}. Retrying...", err);
-                time::interval(Duration::from_secs(3));
-            }
+            Err(err) => warn!("Connection failed: {}. Retrying...", err)
         }
     }
 
@@ -59,7 +54,7 @@ pub async fn init_db() -> Result<(), Error> {
     let client = create_client().await?;
     DB_CLIENT.set(client).map_err(|_| {
         Error::from(std::io::Error::new(
-            std::io::ErrorKind::Other,
+            ErrorKind::Other,
             "Failed to initialize client",
         ))
     })
