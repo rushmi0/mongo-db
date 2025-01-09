@@ -1,7 +1,7 @@
 use actix_web::{get, post, web, HttpResponse, Responder};
-use crate::module::{greet, save_event};
-use crate::module::greet::fetch_event;
+use crate::module::greet;
 use crate::model::{Greeting, NewEvent};
+use crate::storage::{fetch_event, save_event};
 
 #[post("/save/{name}")]
 pub async fn save_event_service(event: web::Json<NewEvent>, name: web::Path<String>) -> impl Responder {

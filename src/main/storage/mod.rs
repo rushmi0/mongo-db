@@ -1,7 +1,13 @@
-pub mod db_config;
+mod db_config;
+mod operations;
 
 pub use db_config::{
     init_db,
-    //query_task
-    connection
+    connection,
+    SchemaCollection
+};
+
+pub use operations::{
+    save_event,
+    fetch_event,
 };

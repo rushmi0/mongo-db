@@ -19,6 +19,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${DB_PASS}
     restart: unless-stopped
     volumes:
+      - mongodb_data:/data/db
       - ./db_setup.js:/docker-entrypoint-initdb.d/db_setup.js:ro
     networks:
       - dev_nk

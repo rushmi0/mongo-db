@@ -1,3 +1,3 @@
-pub mod greet;
+mod greet;
 
-pub use greet::{greet, save_event};
+pub use greet::greet;
